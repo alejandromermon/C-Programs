@@ -1,0 +1,36 @@
+*******************************************************************
+                Workshop 1 - Part 2
+
+Name		   : Alejandro Mercado
+Email	       : amercado-monetti@myseneca.ca
+Student ID     : 123350233
+Date Completed : 20/05/2024
+
+I have done all the coding by myself and only copied the code that
+my professor provided to complete my workshops and assignments.
+******************************************************************
+
+Throughout this workshop, I learned about a lot of concepts, and deepened my knowledge about previous
+concepts. First of all, I knew about the #ifndef safeguard for header files, but I wasn't aware of
+how they wouldn't protect against including the same header files in other modules. The in-class
+demonstration helped me in understanding how that comes about, as well as the video explaining it
+from the workshop description pdf. Something else I learned was the utilization of the <iostream>
+library and how it's different from the previously utilized <sdtio> library; the biggest differences
+I found were that you need to add the "using namespace std;" line after including the library, which
+was a step that wasn't present with the previously used library.
+The next thing I learned, which also intertwines with the previous point I mentioned, was how to 
+create and use namespaces. In the workshop we were required to add all the code in the "seneca"
+namespace, which then required me to add the "using namespace seneca;" line on the file containing
+the main function in order to use the modules I created. I also want to implement the other use for
+namespaces in future code; the one where you only specify the function or variable you're using from
+that namespace, but that wasn't a possibility in this workshop.
+I also learned how cout and cin are used to display text to the terminal, and take user input. Which
+also involves the system function to clear the screen for refreshing the list being displayed;
+something that would've been useful in previous programs I coded from IPC144, but I will implement
+moving forward.
+Last, but certainly not least, I learned about the general guidelines for modules in C++: things
+such as declaring global variables only in the .cpp modules to make them invisible to other modules
+and keeping the constant value declarations in the .cpp files as well, unless needed in the header
+files, and never using the "using" statement in a header file were guidelines that I found useful 
+to know for future reference, and will help me transition to writing C++ code with the best practices
+in mind.
