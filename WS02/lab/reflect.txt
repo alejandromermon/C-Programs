@@ -1,0 +1,116 @@
+/******************************************************************
+				Workshop 2 - Part 2
+
+Name		   : Alejandro Mercado
+Email	       : amercado-monetti@myseneca.ca
+Student ID     : 123350233
+Date Completed : 27/05/2024
+
+I have done all the coding by myself and only copied the code that
+my professor provided to complete my workshops and assignments.
+*****************************************************************/
+
+Throughout this workshop I learned a lot more than in the previous one because I had to actually
+write code in order to get the desired, and final, result. From the beginning I felt that I had
+enough insight and information that was covered on the previous lecture to handle all the issues I
+would encounter; it ended up not being the case for one particular thing, but more on that at the
+end.
+
+	1. Overloaded Functions
+The first thing I learned how to do in this workshop was how to create overloaded functions, which
+is something that was not possible in the projects I had previously worked on as it isn't a feature
+available in C. I used this to create 3 different "read" functions from the File source code:
+
+	bool read(char empName[]);
+	bool read(int& empNum);
+	bool read(double& salary);
+
+The first function is for reading an employee name by supplying a pointer to a char array as an
+argument. The second one is for reading an employee number by supplying a reference of integer type. 
+The last one is to read the salary of an employee by supplying a reference of double floating-point
+type. It is helpful to have these overloaded functions because all of them do essentially the same
+thing, with the difference being on what will be read from the file, and choosing which one will be
+used for each instance will be defined by which type of argument will be passed on to the function.
+
+They were also used in functions from the Employee source code, but with another helpful feature of
+overloaded functions, which is that you can call an overloaded function from within the other
+variation of the function. What I mean is better explained with the implementation of the following
+functions:
+
+	bool load(Employee& employee);
+	bool load();
+
+	void display(const Employee& emp);
+	void display();
+
+The first pair of functions were used to create the array of employees with DMA on the function
+with no arguments, and then the function with the reference to an employee was called by it to read 
+one record of an employee from the file; this was happening inside a for loop, which made sure that
+all the records were read and stored correctly. The second pair of functions were used to display 
+the records stored to the array: the function with no arguments displays the header, and then in a
+for loop calls the display function with the employee reference to be displayed. This is helpful
+because it further ensures the separation of concerns from modular programming principles, by
+dividing the 2 steps of those functions in parts, which also improves readability and maintainability.
+
+	2. References
+The second thing I learned was how to use references, and also how they are different from pointers,
+which was a similar resource I used when programming in C. The main difference from pointers is that
+they work as an alias to the variable they are assigned to, which means that you can use the reference
+as if it were the variable itself. This is helpful because they share the same address, which is
+not the case with pointers, and they also have the variable referenced in their creation, which can
+never be changed. This final feature is handy because there is no possibility of overwriting the
+variable referenced, and it is more readable because you don't have to verify if the address is
+changed at any part of the code. References were used in several places, but we'll just go over this
+example:
+
+	void display(const Employee& emp) {
+		cout << emp.m_empNo << ": " << emp.m_name << ", " << emp.m_salary << endl;
+	}
+Here the argument passed is a reference to a single employee record, which is then printed with the
+cout object. If we were using pointers we would have to write them as "emp->m_empNo", etc., to
+dereference the pointer and get the data at that address. Using references makes this process
+easier by letting me use the "emp" variable as if it were a local variable of Employee type. The
+same goes for using these references when setting the value for the variables; which all improves
+readability and maintainability by removing possible places where a mismatch of dereferencing could
+occurr and break the logic of the application.
+
+	3. Dynamic Memory
+Last but not least, the biggest and most challenging part of this workshop was dynamic memory 
+allocation and deallocation. This is such a useful resource from C++ because we can create new 
+temporary variables or arrays with their memory allocation not being static, so when they are no
+longer necessary, they can be deallocated and freed so they can be used later on. To allocate
+memory in this workshop I used:
+
+	employees = new Employee[noOfEmployees];
+
+	emp.m_name = new char[len]
+
+The fitst line creates a dynamic array of the size previously set by the number of records in the file.
+I then used this array to read the records from the file and stored them into each member of the
+Employee struct type. The second line is one of the more useful cases for dynamic memory; before I
+had to set the size of the char arrays from the declaration of the struct types, which wouldn't be
+modified later on, but this occupies more memory than is sometimes needed. This method ensures that
+we first find out the size we're actually going to need, and then create an array with that
+specific size, so no memory is wasted. This leads me to the part of the workshop where I had the 
+most trouble: memory deallocation.
+
+	void deallocateMemory() {
+		int i;
+
+		for (i = 0; i < noOfEmployees; i++) {
+			delete[] employees[i].m_name;
+		}
+
+		delete[] employees;
+	}
+
+This function has the purpose of deallocating all the instances where we created dynamic arrays to
+ensure that there is no memory left allocated by the application when they will no longer be used,
+effectivey freeing them up for later use. The trouble I had was that I was writing my "delete" 
+statements wrong because I was deleting them without the brackets, which would only delete the
+pointer variable (which is not possible), but I needed to let the delete statement know that it
+was an array to delete all subsequently allocated memory positions for the array. This way I ensured
+there were no memory leaks and both the char arrays that held the names of the employees and the
+employees records array were deallocated successfully at the end of the application. This can also
+be done at other parts of the application as long as we're sure that we won't need anything stored
+to those arrays and we can use that memory for something else.
