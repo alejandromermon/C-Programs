@@ -1,0 +1,117 @@
+/******************************************************************
+                Workshop 3 - Part 2
+
+Name		   : Alejandro Mercado
+Email	       : amercado-monetti@myseneca.ca
+Student ID     : 123350233
+Date Completed : 03/06/2024
+
+I have done all the coding by myself and only copied the code that
+my professor provided to complete my workshops and assignments.
+*****************************************************************/
+
+1. Defining a class type
+
+    This topic was very interesting to me because I had used struct types previously in C, but Í've
+    found good uses for the new features that class types bring to the table. It was very interesting
+    to me how you can declare functions inside the classes and also declare them as constant, which
+    impacts the whole function and not just a variable. Furthermore, it was interesting to know that
+    const functions can only call other const functions inside them to ensure that the policy is
+    enforced by all child functions. There are 3 types of class functions:
+
+    a) Query functions: these functions only report the state of the object, and are the ones that 
+    use the keyword const to ensure that they don't modify the object. I used it in my code for the
+    display and isValid functions, because I didn't want them to modify the object at all.
+
+    b) Modifier functions: these functions can and should modify the object as desired. I used them
+    for the set functions, which take the values desired as arguments on the function call and then
+    modify the values for the object after validation.
+
+    c) Special functions: these functions have the specific task of creating, assigning and destroying
+    objects. I didn't use them as is in this implementation, but they are the constructor and destructor
+    functions, and they could've been the setEmpty and deallocate functions, with the proper syntax.
+
+2. Privatizing data within the class type
+
+    This topic is very important because everything declared inside a class type is private by
+    default, whereas it is public by default in the struct types. It was very interesting to learn
+    that all the variables declared in a class should remain private, this ensures that their
+    values can only be modified by the functions declared in the class as well to improve maintainability
+    by focalizing the places where some variables' values to be modified.
+
+    I made use of this in that the only functions that were able to modify the values inside the
+    Item and Bill classes were the set and setname functions inside the classes. If we were to have
+    tried to modify them directly in main, we would've gotten an error from the compiler. This was
+    especially useful for the setName function, because it was declared as private, therefore it
+    was called by the set function like this:
+
+    void Item::set(const char* name, double price, bool taxed) {
+		if (name == nullptr || m_itemName[0] == '\0' || price < 1)
+			setEmpty();
+		else {
+		****setName(name);****
+			m_price = price;
+			m_taxed = taxed;
+		}
+	}
+    This made it so that there was first a step of validation from the set function, and only when
+    a proper value is provided will it call that function to modify the value of the object.
+
+3. Instantiating an object of class type
+
+    In this workshop there was one instantiation provided by the main function, which only declared
+    a variable of Bill type, but didn't initialize it, but where it got interesting was when we did
+    a dynamically created array of Item type:
+
+        m_items = new Item[m_noOfItems];
+
+		// Set all items from the newly created array to an empty state
+		for (auto i = 0; i < m_noOfItems; i++) {
+			m_items[i].setEmpty();
+		}
+    Here, we first created a dynamic array of a certain size, but then we initialized each element,
+    which leads me to the next thing I re-learned: a safe empty state. I say re-learned because I
+    already knew what a SES was and how to achieve it, but in this workshop I learned that it doesn't
+    only mean 0, but what is recognized for the program and it's implementation as an empty state,
+    which, theoretically, could be anything.
+
+
+4. Accessing data within an object of class type through public member functions
+
+    This topic I have touched on previously. It is the fact that public member functions can be called
+    anywhere, and this allows functions (such as the display function) to be called from main, but
+    functions that will modify the state of the object should be made private, to ensure that they
+    can only be called from inside another member function and streamline the value modifications.
+
+5. Using standard library facilities to format data inserted into the output stream
+
+    This was the topic that I struggled to grasp the most, but when I got the hang of it, it was
+    very easy and made a lot of sense as to why and how to do most things when it comes to cout.
+    I had to change a lot of things in this workshop for the outputs to match the specs:
+
+		cout.fill('.');
+		cout.width(20);
+		cout.setf(ios::left);
+		cout << m_itemName;
+		cout << " | ";
+
+		// Reset output objects
+		cout.fill(' ');
+		cout.unsetf(ios::left);
+
+		cout.width(7);
+		cout.precision(2);
+		cout.setf(ios::fixed);
+		cout << m_price;
+		cout << " | ";
+
+		cout << (m_taxed ? "Yes" : "No ");
+		cout << " |" << endl;
+
+    I had to change the fill character to a dot, and then reset it to space, then I had to set the
+    width to 20 characters and set the format to be left justified, but then reset it as well. Then,
+    I had to set the precision of decimal places to 2 and use fixed formatting to get the decimal
+    places to print. What complicated things was that some methods only changed the behavior of
+    cout for the next line being printed, such as width, but some remained until they were changed,
+    such as fill and setf, which led to some confusion as to how many times to add each method to
+    my code to make it work as desired.
