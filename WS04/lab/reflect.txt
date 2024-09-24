@@ -1,0 +1,104 @@
+/******************************************************************
+                Workshop 4 - Part 2
+
+Name		   : Alejandro Mercado
+Email	       : amercado-monetti@myseneca.ca
+Student ID     : 123350233
+Date Completed : 08/06/2024
+
+I have done all the coding by myself and only copied the code that
+my professor provided to complete my workshops and assignments.
+*****************************************************************/
+
+1.- Defining a default constructor
+
+In this workshop I was able to learn how to create a default constructor in a class to make sure
+that the way the object is initialized matches with the values that my program would recognize as
+an empty state. This was my default constructor:
+
+    Canister::Canister() {
+		setToDefault();
+	}
+
+This constructor called this function:
+
+    void Canister::setToDefault() {
+		m_contentName = nullptr;
+		m_height = 13.0;
+		m_diameter = 10.0;
+		m_contentVolume = 0.0;
+		m_usable = true;
+	}
+This builds on the concept of defining an empty state for the intended purposes of the program, because
+we're not setting everything to just zero, but rather to the minimum acceptable values that were
+described in the documentation for the program. It was also very interesting to learn that if you
+define any constructor in your class, the compiler will not give you the default constructor
+anymore, so you have to keep that in mind when creating the possibilities for your constructors.
+
+2.- Defining custom constructors with different number of arguments
+
+I also learned that I can overload the constructor so that I can use them with a different number of 
+arguments if I wish to initialize them for a specific use. Here's how I overloaded
+the constructors:
+
+    Canister();
+    Canister(const char* contentName);
+    Canister(double height, double diameter, const char* contentName = nullptr);
+
+The first constructor is the default one with no arguments that I previously mentioned. The second
+one only accepts a pointer for a char array containing the name of something that will get stored
+in the canister, but the rest of the values will be set to default. The final one is the most
+interesting because it accepts the parameters for all of the arguments and has a default value for
+the name if it isn't supplied. I say that it's the most interesting one because it can initialize all
+the values for the canister, but this means that I also had to check that the values passed to the
+function were within the acceptable bounds before passing them to the object, and if they were
+invalid, I would keep the default values and set the usable flag to false, this is because we need
+the rest of the logic to be able to handle all the values stored, and that means that we can't
+accept invalid values.
+
+3.- Defining a Destructor to prevent memory leaks.
+
+The next step was to create a destructor for my object. The reason that I needed a custom destructor
+was because the name was a dinamically created array of characters, and this meant that the
+destruction process would need to do something specific when the object went out of scope:
+
+	Canister::~Canister() {
+		delete[] m_contentName;
+	}
+
+The destructor deletes the dinamically created array before it goes out of scope, this ensures that
+there are no memory leaks by deallocating the memory for that pointer. The reason that this
+destructor is different from the deallocateMemory function from the previous workshop is that we
+don't need to explicitly call the destructor function, as it will be called automatically whenever
+the object goes out of scope. This is important to note because the second distinction is that we
+don't need to set the pointer to null because it is already going out of scope, therefore it won't
+be accessible after returning to the caller function, ensuring that there won't be errors to follow.
+
+4.- Using the reference of the current object
+
+To use the reference of the current object inside a member function, we have to use the 'this'
+keyword, which is an alias (reference) of the object that is calling the function (method). To
+return the reference to the current object we dereference the object in the return statement:
+
+	Canister& Canister::setContent(const char* contentName) {
+		if (contentName == nullptr)
+			m_usable = false;
+		else if (isEmpty())
+			setName(contentName);
+		else if (!hasSameContent(contentName))
+			m_usable = false;
+
+		return *this;
+	}
+
+Here I returned the reference to the current object after I set the content to the name passed as
+an argument to the function. This allowed for method chaining, which is useful when you want to
+call multiple methods from a single object in one line, such as this:
+	
+	C[5].setContent("Milk").pour(500);
+
+Here the setContent function is called, and then when it returns the reference to the object, that
+is then allowing the pour function to be called from the returned reference's member functions
+and reduces the amount of lines that the desired outcome would take otherwise. This improves readability
+in the code because all the modifications to an object are done in a single line and we can use
+line jumps when we are doing things for different objects.
