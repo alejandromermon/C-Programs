@@ -1,0 +1,78 @@
+/******************************************************************
+                Workshop 5 - Part 2
+
+Name		   : Alejandro Mercado
+Email	       : amercado-monetti@myseneca.ca
+Student ID     : 123350233
+Date Completed : 17/06/2024
+
+I have done all the coding by myself and only copied the code that
+my professor provided to complete my workshops and assignments.
+*****************************************************************/
+
+    1. Defined and created binary member operator
+The binary member operators are good for setting specific behaviors when performing binary operators,
+we can set them to modify the members of a class in whichever way we want. In this workshop I created
+6 binary oprators in total:
+
+    Account& operator =(const int num);
+    Account& operator =(Account& src);
+    Account& operator +=(const double amt);
+    Account& operator -=(const double amt);
+    Account& operator <<(Account& src);
+    Account& operator >>(Account& dest);
+
+The first one allowed me to set the account number of an object to the supplied number; the second
+moved the account on the right to the object calling the operator function; the third added the
+amount provided to the balance of the account; the fourth one decreased the balance by the amount
+provided; the fifth one moved the balance of the account on the right to the account calling; the
+final one did the same but to the opposite side. All these operators were very useful, but we need
+to be careful when creating them so that they are easy to read, because if for example the = operator
+withdrew money from the account, it wouldn't make sense. I think these are powerful if used 
+appropriately, and cut back on unnecessary typing for simple functions like these.
+
+    2. Defined and created a type conversion operator
+The type conversion operators are very similar to the binary member operators, but they are only
+called when casting the object to another type. In the workshop I defined 3 of them:
+
+    operator bool() const;
+    operator int() const;
+    operator double() const;
+
+The first one returns true if the object is valid; the second one returns the account number; the
+third one returns the balance of the account. These were very useful for different reasons: the bool
+converter was useful when using if statements such as "if(account)", because it would check if the
+account was valid before moving on to the rest of the logic without having to access the private members
+and risking unwanted modifications to the values. The other 2 were useful as getter functions so that
+the functions outside the class could access the values of the account without the need to create
+extra functions.
+    
+    3. Defined and created unary member operator
+These operators work in the same way  as the binary operators, but with the only operand being the
+object that calls the operator function. In this workshop I only created one unary operator:
+
+    bool operator ~() const;
+
+This operator was used similarly to the bool type conversion operator, but with the caveat that it
+would only return true if the object was in a valid empty state. This was useful when we wanthed to
+copy one account to another place, or when setting an account number, which should only happen if
+an account object is new.
+    
+    4. Defined and created helper binary operator between classes, and between a primitive type and
+       a class
+These helper operators are similar to the member operators, but they need to use helper functions
+if they need to access any private members of the class. These operators can be declared, defined
+and called anywhere, as opposed to the member operators that live inside of a class. In this 
+workshop I created 2 of them:
+
+   double operator +(const Account& acc1, const Account& acc2);
+   double operator +=(double& amt, const Account& acc);
+
+The first one returns the sum of both accounts' balances, and the second one adds the balance to a
+double value, which, in retrospect, I beleive should be void instead of double, but it works either
+way. There were 2 options as to how to make these helpers work: either by making them friends of
+the class (which sucks in 99% of cases), or by using the type conversion operators as getter
+functions. Evidently, I chose the latter. :) Finally, the main difference of the helpers being for
+2 classes or a class and a primitive type is that the one between classes won't be able to modify
+anything, it can only use queries for the state of the class, whereas the second can modify the
+primitive type inside the operator function.
