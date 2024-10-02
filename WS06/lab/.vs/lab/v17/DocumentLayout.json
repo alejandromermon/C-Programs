@@ -1,0 +1,73 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\aleja\\Documents\\Seneca\\OOP244\\Copy\\OOP-Workshops\\WS06\\lab\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{5F1CCA09-CC06-413C-90C8-F710F6C9B14C}|lab.vcxproj|C:\\Users\\aleja\\Documents\\Seneca\\OOP244\\Copy\\OOP-Workshops\\WS06\\lab\\TextFile.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{5F1CCA09-CC06-413C-90C8-F710F6C9B14C}|lab.vcxproj|solutionrelative:TextFile.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F1CCA09-CC06-413C-90C8-F710F6C9B14C}|lab.vcxproj|C:\\Users\\aleja\\Documents\\Seneca\\OOP244\\Copy\\OOP-Workshops\\WS06\\lab\\TextFile.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{5F1CCA09-CC06-413C-90C8-F710F6C9B14C}|lab.vcxproj|solutionrelative:TextFile.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5F1CCA09-CC06-413C-90C8-F710F6C9B14C}|lab.vcxproj|C:\\Users\\aleja\\Documents\\Seneca\\OOP244\\Copy\\OOP-Workshops\\WS06\\lab\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{5F1CCA09-CC06-413C-90C8-F710F6C9B14C}|lab.vcxproj|solutionrelative:main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e1b7d1f8-9b3c-49b1-8f4f-bfc63a88835d}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "main.cpp",
+              "DocumentMoniker": "C:\\Users\\aleja\\Documents\\Seneca\\OOP244\\Copy\\OOP-Workshops\\WS06\\lab\\main.cpp",
+              "RelativeDocumentMoniker": "main.cpp",
+              "ToolTip": "C:\\Users\\aleja\\Documents\\Seneca\\OOP244\\Copy\\OOP-Workshops\\WS06\\lab\\main.cpp",
+              "RelativeToolTip": "main.cpp",
+              "ViewState": "AQIAAA4AAAAAAAAAAAAqwBIAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-07-06T00:36:45.181Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TextFile.h",
+              "DocumentMoniker": "C:\\Users\\aleja\\Documents\\Seneca\\OOP244\\Copy\\OOP-Workshops\\WS06\\lab\\TextFile.h",
+              "RelativeDocumentMoniker": "TextFile.h",
+              "ToolTip": "C:\\Users\\aleja\\Documents\\Seneca\\OOP244\\Copy\\OOP-Workshops\\WS06\\lab\\TextFile.h",
+              "RelativeToolTip": "TextFile.h",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAHAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-07-06T00:36:46.128Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "TextFile.cpp",
+              "DocumentMoniker": "C:\\Users\\aleja\\Documents\\Seneca\\OOP244\\Copy\\OOP-Workshops\\WS06\\lab\\TextFile.cpp",
+              "RelativeDocumentMoniker": "TextFile.cpp",
+              "ToolTip": "C:\\Users\\aleja\\Documents\\Seneca\\OOP244\\Copy\\OOP-Workshops\\WS06\\lab\\TextFile.cpp",
+              "RelativeToolTip": "TextFile.cpp",
+              "ViewState": "AQIAADYAAAAAAAAAAAAAACoAAAAeAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-07-06T00:36:47.029Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
