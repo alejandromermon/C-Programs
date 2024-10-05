@@ -1,0 +1,96 @@
+/******************************************************************
+                Workshop 7 - Part 2
+
+Name		   : Alejandro Mercado
+Email	       : amercado-monetti@myseneca.ca
+Student ID     : 123350233
+Date Completed : 15/07/2024
+
+I have done all the coding by myself and only copied the code that
+my professor provided to complete my workshops and assignments.
+*****************************************************************/
+
+1.- Inherit a derived class from a base class
+
+    A derived class is a class that inherits almost all members from the base class. The type of
+inheritance determines what the access level will be for those inherited members; private inheritance
+makes it so that all members of the base class will be private for the derived class, public
+inheritance will make them publicly accessible (except for protected members), and protected makes them
+only accessible to the class and its children. Nonetheless, this access level doesn't override the
+base class' ones, so private members of the base class will remain private and only accesible through
+the inherited member functions. The protected members are those who can only be accessed by the class
+itself and its children. I used this inheritance in my code for the Truck class:
+
+    class Truck : public MotorVehicle {
+        ...
+    };
+    
+    Because I had no protected members in the MotorVehicle class, all public members of it remained
+public, therefore the inherited member functions were able to be called in the main function.
+
+2.- Shadow a base class member function with a derived class member function
+
+    Shadowing functions in a derived class happens when the derived class contains a member function 
+with the same signature as the base class, therefore it will always call the derived class' function unless
+specified otherwise. I had a function shadowed in my code for the Truck class:
+    
+    class Truck : public MotorVehicle {
+        // Displays the Truck object
+        std::ostream& write(std::ostream& os) const;
+        // Reads from the stream in the data for the current object
+        std::istream& read(std::istream& in);
+    };
+
+    class MotorVehicle {
+        // Displays the MotorVehicle object
+        std::ostream& write(std:: ostream& os) const;
+        // Reads from the stream in the data for the current object
+        std::istream& read(std::istream& in);
+    };
+
+    Here I had both classes with read and write functions that had the same name and took iostream
+object references as parameters, so if I want to display the MotorVehicle object inside a Truck
+function, I can't do it by just calling a write function because it will call the Truck's write function.
+
+3.- Access a shadowed member function that is defined in a base class
+
+    Building on the previous topic, when a function is shadowed, if we want to call the base class'
+function we need to use the scope resolution operator to specify which version is being called at
+that moment. I had to implement it in my code in both read and write functions of the Truck class:
+    
+    // Displays the Truck object
+	ostream& Truck::write(ostream& os) const {
+		return MotorVehicle::write(os) << " | " << m_currCargo << '/' << m_capacity;
+	}
+	// Reads from the stream in the data for the current object
+	istream& Truck::read(istream& in) {
+		MotorVehicle::read(in);
+		cout << "Capacity: ";
+		in >> m_capacity;
+		cout << "Cargo: ";
+		in >> m_currCargo;
+
+		return in;
+	}
+
+    Here, because of the specs given, the MotorVehicle read and write functions already had the basic
+input and output for the base members, and the only things missing were displaying the derived
+class' new members. Therefore I had to call the base read and write in the derived read and write
+functions, but by just calling 'read(in/out)' it would create an infinite loop of calling itself,
+which would result in a stack overflow. To fix this I had to specify that the read and write functions
+to be called were the ones from the base class with the scope resolution for the MotorVehicle class.
+
+4.- Utilize custom input/output operators with these classes
+
+    The custom input/output operators I chose were the insertion (<<) and extraction (>>) operators:
+
+    std::ostream& operator <<(std::ostream& os, const MotorVehicle& mv);
+    std::istream& operator >>(std::istream& in, MotorVehicle& mv);
+
+    std::ostream& operator <<(std::ostream& os, const Truck& tr);
+    std::istream& operator >>(std::istream& in, Truck& tr);
+
+    These functions had the purpose of calling the read and write function methods from the 
+MotorVehicle and Truck objects, as they were public methods, and returning the iostream object, and
+because the read and write functions were created for chaining calls, they returned the iostream
+object reference; therefore I was able to make it a 1 line function.
