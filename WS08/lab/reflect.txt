@@ -1,0 +1,79 @@
+/******************************************************************
+                Workshop 8 - Part 2
+
+Name		   : Alejandro Mercado
+Email	       : amercado-monetti@myseneca.ca
+Student ID     : 123350233
+Date Completed : 22/07/2024
+
+I have done all the coding by myself and only copied the code that
+my professor provided to complete my workshops and assignments.
+*****************************************************************/
+
+    1.- Define pure virtual functions
+
+These functions are used when creating Abstract Base Classes because they are just prototypes of
+the functions that will be implemented by their children. They are useful when you want to create
+some standarized methods for derived classes, so that they can contain the same methods, but for each
+of them to implement their own definition based on their members. This is how I implemented pure virtual 
+functions in my code:
+
+    class Shape {
+    public:
+        virtual void draw(std::ostream& os) const = 0;
+        virtual void getSpecs(std::istream& is) = 0;
+    };
+
+These were created in order to make all classes that derive from Shape to have a draw and getSpecs
+function. The 2 parts that make these pure virtual functions are: the 'virtual' keyword before the
+return type, and the '= 0' just before the semicolon. This lets the compiler know that this class
+won't contain any implementation for the functions. This class is also considered a pure interface
+because it is only comprised of pure virtual functions.
+
+    2.- Abstract base classes
+
+This builds on the topic of pure virtual functions because ABCs are those classes which contain or
+inherit at least one pure virtual function, and if it inherits them, it doesn't provide any 
+implementation for them. These classes cannot be instantiated, we can only create pointers of them
+for creating an object of a concrete class with DMA. The previous example is an ABC that is also
+considered a pure interface.
+
+    3.- Implement behaviour using virtual functions
+
+There are some considerations I had to keep in mind when using pure virtual functions and ABCs in
+my code:
+
+    class Shape {
+    public:
+        virtual void draw(std::ostream& os) const = 0;
+        virtual void getSpecs(std::istream& is) = 0;
+
+        virtual ~Shape() = default;
+    };
+
+    class LblShape : public Shape {
+        char* m_label{};    
+    };
+
+- For the pure interface and the subsequent ABC it was imperative that I made the destructor virtual,
+otherwise the only destructor that would be called was the ABCs and not the derived classes, which
+in this case would mean that I'd have memory leaks because the LblShape class has a pointer for DMA.
+
+    void Rectangle::getSpecs(istream& is) {
+            LblShape::getSpecs(is);
+            is >> m_width;
+            is.ignore();
+            is >> m_height;
+            is.clear();
+            while (is.get() != '\n');
+        }
+
+- In this implementation from the Rectangle class, I needed to call the base class' getSpecs function,
+so I had to use the scope resolution operator to specify that.
+
+    4.- Explain the difference between an abstract base class and a concrete class
+
+An abstract class is a class that inherits or contains at least one pure virtual function. A concrete
+class is any class that contains both the declaration and definition of all functions. An object of
+an ABC can't be instantiated, and only pointers of it can be created, whereas objects of a concrete
+cass can be created.
